@@ -32,8 +32,6 @@ Then switch the `:scm` option to `:copy` in `config/deploy.rb`:
 TODO
 ====
 
-- Make exclude filters configurable
-
 I'm new to programming for Capistrano and even Ruby in general. So any feedback is appreciated. 
 
 License
