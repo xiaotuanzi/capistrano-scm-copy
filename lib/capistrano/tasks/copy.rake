@@ -3,6 +3,7 @@ namespace :copy do
   archive_name = "archive.tar.gz"
   include_dir  = fetch(:include_dir) || "*"
   exclude_dir  = fetch(:exclude_dir) || ""
+  tar_role = fetch(:tar_role)
 
   desc "Archive files to #{archive_name}"
   file archive_name => FileList[include_dir].exclude(archive_name) do |t|
@@ -12,7 +13,7 @@ namespace :copy do
   desc "Deploy #{archive_name} to release_path"
   task :deploy => archive_name do |t|
     tarball = t.prerequisites.first
-    on roles :app do
+    on roles(tar_role.to_sym) do
       # Make sure the release directory exists
       execute :mkdir, "-p", release_path
       # Create a temporary file on the server
