@@ -3,7 +3,9 @@ namespace :copy do
   archive_name = "archive.tar.gz"
   include_dir  = fetch(:include_dir) || "*"
   exclude_dir  = fetch(:exclude_dir) || ""
-  tar_role = fetch(:tar_role)
+
+  # Defalut to :all roles
+  tar_role = fetch(:tar_role, "all")
 
   desc "Archive files to #{archive_name}"
   file archive_name => FileList[include_dir].exclude(archive_name) do |t|
@@ -13,16 +15,20 @@ namespace :copy do
   desc "Deploy #{archive_name} to release_path"
   task :deploy => archive_name do |t|
     tarball = t.prerequisites.first
+
     on roles(tar_role.to_sym) do
       # Make sure the release directory exists
       execute :mkdir, "-p", release_path
+
       # Create a temporary file on the server
       tmp_file = capture("mktemp")
+
       # Upload the archive, extract it and finally remove the tmp_file
       upload!(tarball, tmp_file)
       execute :tar, "-xzf", tmp_file, "-C", release_path
       execute :rm, tmp_file
     end
+
     Rake::Task["copy:clean"].invoke
   end
 
