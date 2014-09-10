@@ -5,7 +5,7 @@ namespace :copy do
   exclude_dir  = fetch(:exclude_dir) || ""
 
   # Defalut to :all roles
-  tar_roles = fetch(:tar_roles, "all")
+  tar_roles = fetch(:tar_roles, 'all')
 
   desc "Archive files to #{archive_name}"
   file archive_name => FileList[include_dir].exclude(archive_name) do |t|
@@ -16,8 +16,9 @@ namespace :copy do
   task :deploy => archive_name do |t|
     tarball = t.prerequisites.first
 
-    on roles(tar_roles.to_sym) do
+    on roles(tar_roles) do
       # Make sure the release directory exists
+      puts "==> release_path: #{release_path} is created on #{tar_roles} roles <=="
       execute :mkdir, "-p", release_path
 
       # Create a temporary file on the server
