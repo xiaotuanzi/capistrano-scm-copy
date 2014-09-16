@@ -42,11 +42,16 @@ The MIT License (MIT)
 Changelog
 =========
 
-0.2.0
+0.3.0
 -----
 
 - Fix issue when running on Mac OS X (see PR #9)
 - Allow exclude directory to be an Array (see PR #9)
+
+0.2.0
+-----
+
+- Add `exclude_dir`
 
 0.1.0
 -----
