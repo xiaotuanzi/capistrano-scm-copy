@@ -42,11 +42,16 @@ The MIT License (MIT)
 Changelog
 =========
 
+0.4.0
+-----
+
+- Add support for `tar_roles` (see wercker/capistrano-scm-copy#8)
+
 0.3.0
 -----
 
-- Fix issue when running on Mac OS X (see PR #9)
-- Allow exclude directory to be an Array (see PR #9)
+- Fix issue when running on Mac OS X (see wercker/capistrano-scm-copy#9)
+- Allow exclude directory to be an Array (see wercker/capistrano-scm-copy#9)
 
 0.2.0
 -----
