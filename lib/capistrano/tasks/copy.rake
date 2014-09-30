@@ -6,6 +6,9 @@ namespace :copy do
 
   exclude_args = exclude_dir.map { |dir| "--exclude '#{dir}'"}
 
+  # Defalut to :all roles
+  tar_roles = fetch(:tar_roles, 'all')
+
   desc "Archive files to #{archive_name}"
   file archive_name => FileList[include_dir].exclude(archive_name) do |t|
     cmd = ["tar -cvzf #{t.name}", *exclude_args, *t.prerequisites]
@@ -15,9 +18,10 @@ namespace :copy do
   desc "Deploy #{archive_name} to release_path"
   task :deploy => archive_name do |t|
     tarball = t.prerequisites.first
-    on roles :all do
 
+    on roles(tar_roles) do
       # Make sure the release directory exists
+      puts "==> release_path: #{release_path} is created on #{tar_roles} roles <=="
       execute :mkdir, "-p", release_path
 
       # Create a temporary file on the server
@@ -30,7 +34,6 @@ namespace :copy do
     end
 
     Rake::Task["copy:clean"].invoke
-
   end
 
   task :clean do |t|
@@ -39,9 +42,7 @@ namespace :copy do
   end
 
   task :create_release => :deploy
-
   task :check
-
   task :set_current_revision
 
 end
