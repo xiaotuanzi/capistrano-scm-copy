@@ -7,7 +7,7 @@ namespace :copy do
   exclude_args = exclude_dir.map { |dir| "--exclude '#{dir}'"}
 
   # Defalut to :all roles
-  tar_roles = fetch(:tar_roles, 'all')
+  tar_roles = fetch(:tar_roles, :all)
 
   desc "Archive files to #{archive_name}"
   file archive_name => FileList[include_dir].exclude(archive_name) do |t|
