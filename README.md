@@ -42,6 +42,11 @@ The MIT License (MIT)
 Changelog
 =========
 
+0.5.0
+-----
+
+- Fix issue related to `tar_roles` (see wercker/capistrano-scm-copy#15)
+
 0.4.0
 -----
 
