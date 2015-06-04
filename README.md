@@ -25,6 +25,10 @@ First make sure you install the capistrano-scm-copy by adding it to your `Gemfil
 
     gem "capistrano-scm-copy"
 
+Add to Capfile:
+
+    require 'capistrano/copy'
+    
 Then switch the `:scm` option to `:copy` in `config/deploy.rb`:
 
     set :scm, :copy
