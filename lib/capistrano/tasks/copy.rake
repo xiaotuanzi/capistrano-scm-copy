@@ -9,9 +9,11 @@ namespace :copy do
   # Defalut to :all roles
   tar_roles = fetch(:tar_roles, :all)
 
+  tar_verbose = fetch(:tar_verbose, true) ? "v" : ""
+
   desc "Archive files to #{archive_name}"
   file archive_name => FileList[include_dir].exclude(archive_name) do |t|
-    cmd = ["tar -cvzf #{t.name}", *exclude_args, *t.prerequisites]
+    cmd = ["tar -c#{tar_verbose}zf #{t.name}", *exclude_args, *t.prerequisites]
     sh cmd.join(' ')
   end
 
